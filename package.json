@@ -1,0 +1,25 @@
+{
+  "name": "level-naive-bayes",
+  "version": "0.0.0",
+  "description": " Bayes text classifier that runs on top of leveldb",
+  "main": "index.js",
+  "dependencies": {
+    "after-all": "^2.0.1",
+    "mutexify": "^1.0.1",
+    "pump": "^1.0.0",
+    "through2": "^0.6.3"
+  },
+  "devDependencies": {
+    "memdb": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/level-naive-bayes.git"
+  },
+  "author": "Mathias Buus (@mafintosh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mafintosh/level-naive-bayes/issues"
+  },
+  "homepage": "https://github.com/mafintosh/level-naive-bayes"
+}
