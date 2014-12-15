@@ -7,6 +7,8 @@ doesn't fit in memory. Based on the [bayes](https://github.com/ttezel/bayes) mod
 npm install level-naive-bayes
 ```
 
+[![build status](http://img.shields.io/travis/mafintosh/level-naive-bayes.svg?style=flat)](http://travis-ci.org/mafintosh/level-naive-bayes)
+
 ## Usage
 
 ``` js
