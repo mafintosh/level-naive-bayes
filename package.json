@@ -1,6 +1,6 @@
 {
   "name": "level-naive-bayes",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Bayes text classifier that runs on top of leveldb",
   "main": "index.js",
   "dependencies": {
