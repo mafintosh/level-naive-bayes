@@ -10,7 +10,11 @@
     "through2": "^0.6.3"
   },
   "devDependencies": {
-    "memdb": "^0.2.0"
+    "memdb": "^0.2.0",
+    "tape": "^3.0.3"
+  },
+  "scripts": {
+    "test": "tape test.js"
   },
   "repository": {
     "type": "git",
