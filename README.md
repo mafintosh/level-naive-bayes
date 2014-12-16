@@ -1,7 +1,6 @@
 # level-naive-bayes
 
-Naive Bayes text classifier that runs on top of leveldb so you can work with datasets that
-doesn't fit in memory. Based on the [bayes](https://github.com/ttezel/bayes) module.
+Naive Bayes text classifier that runs on top of leveldb. Based on the [bayes](https://github.com/ttezel/bayes) module.
 
 ```
 npm install level-naive-bayes
