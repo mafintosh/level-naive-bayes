@@ -51,6 +51,16 @@ If the text is already tokenized pass in an array of tokens instead of text
 Classify the given text into a category.
 If the text is already tokenized pass in an array of tokens instead of text
 
+### Tests
+`npm i --save-dev`
+
+or
+
+`npm i -g mocha`
+
+then run:
+`mocha`
+
 ## License
 
 MIT
