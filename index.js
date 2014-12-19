@@ -2,7 +2,7 @@ var after = require('after-all')
 var mutexify = require('mutexify')
 var through = require('through2')
 var pump = require('pump')
-
+var q = require('q')
 var noop = function() {}
 
 var defaultTokenize = function(str) {
@@ -115,6 +115,8 @@ module.exports = function(db, opts) {
     })
   }
 
+  that.trainAsync = q.denodeify(that.train)
+
   that.classify = function(tokens, cb) {
     if (typeof tokens === 'string') tokens = tokenize(tokens)
 
@@ -161,6 +163,7 @@ module.exports = function(db, opts) {
       cb(null, chosen)
     })
   }
+  that.classifyAsync = q.denodeify(that.classify)
 
   return that
 }
