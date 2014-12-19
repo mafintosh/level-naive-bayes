@@ -51,6 +51,21 @@ If the text is already tokenized pass in an array of tokens instead of text
 Classify the given text into a category.
 If the text is already tokenized pass in an array of tokens instead of text
 
+
+#### `nb.trainAsync(category, text)`
+Returns promise of finished training, usage:
+
+ nb.trainAsync('positive', 'amazing, awesome movie!! Yeah!! Oh boy.').then(function () {
+   return nb.classify('awesome, cool, amazing!! Yay.', function (err, category) {
+     console.log('positive', category);
+   })
+ })
+
+For better example look at `/test/qClassifyTest.js`
+'can que all asynchronous code'
+
+
+
 ### Tests
 `npm i --save-dev`
 

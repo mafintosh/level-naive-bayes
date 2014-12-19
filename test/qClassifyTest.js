@@ -22,7 +22,7 @@ describe('train with promise', function () {
                 })
             })
     });
-    
+
     it('can que all asynchronous code', function (done) {
         var thingsToDo = [
             nb.trainAsync('positive', 'Sweet, this is incredibly, amazing, perfect, great!!'),
