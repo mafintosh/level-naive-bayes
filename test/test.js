@@ -1,6 +1,7 @@
 var memdb = require('memdb')
 var tape = require('tape')
-var bayes = require('./')
+var bayes = require('./../')
+var q = require('q')
 
 tape('postive / negative', function(t) {
   var nb = bayes(memdb())
@@ -34,6 +35,42 @@ tape('spam / not spam', function(t) {
           t.end()
         })
       })
+    })
+  })
+})
+
+
+tape('train with promise', function(t) {
+  var nb = bayes(memdb())
+
+  nb.trainAsync('positive', 'amazing, awesome movie!! Yeah!! Oh boy.')
+    .then(function () {
+      return nb.trainAsync('positive', 'Sweet, this is incredibly, amazing, perfect, great!!')
+    })
+    .then(function () {
+      return nb.trainAsync('negative', 'terrible, shitty thing. Damn. Sucks!!');
+    })
+    .then(function () {
+      return nb.classify('awesome, cool, amazing!! Yay.', function (err, category) {
+        t.same('positive', category, 'should be positive')
+        t.end()
+      })
+    })
+})
+
+tape('que all train promises', function(t) {
+  var nb = bayes(memdb())
+
+  var thingsToDo = [
+    nb.trainAsync('positive', 'Sweet, this is incredibly, amazing, perfect, great!!'),
+    nb.trainAsync('positive', 'amazing, awesome movie!! Yeah!! Oh boy.'),
+    nb.trainAsync('negative', 'terrible, shitty thing. Damn. Sucks!!')
+  ];
+
+  q.all(thingsToDo).then(function() {
+    return nb.classify('awesome, cool, amazing!! Yay.', function (err, category) {
+      t.same('positive', category, 'should be positive')
+      t.end()
     })
   })
 })

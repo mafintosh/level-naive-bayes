@@ -69,14 +69,7 @@ For better example look at `/test/qClassifyTest.js`
 
 
 ### Tests
-`npm i --save-dev`
-
-or
-
-`npm i -g mocha`
-
-then run:
-`mocha`
+`npm test`
 
 ## License
 
