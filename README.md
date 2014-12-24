@@ -53,7 +53,7 @@ If the text is already tokenized pass in an array of tokens instead of text
 
 
 #### `nb.trainAsync(category, text)`
-Returns promise of finished training, usage:
+Returns a promise of finished training, usage:
 
 ``` js
 nb.trainAsync('positive', 'amazing, awesome movie!! Yeah!! Oh boy.').then(function () {
@@ -63,9 +63,24 @@ nb.trainAsync('positive', 'amazing, awesome movie!! Yeah!! Oh boy.').then(functi
 })
 ```
 
-For better example look at `/test/qClassifyTest.js`
-'can que all asynchronous code'
+### `nb.classifyAsync(text)`
+Returns a promise of finished clasification, usage:
 
+```js
+var thingsToDo = [
+  nb.trainAsync('positive', 'Sweet, this is incredibly, amazing, perfect, great!!'),
+  nb.trainAsync('positive', 'amazing, awesome movie!! Yeah!! Oh boy.'),
+  nb.trainAsync('negative', 'terrible, shitty thing. Damn. Sucks!!')
+];
+
+q.all(thingsToDo)
+  .then(function () {
+    return nb.classifyAsync('awesome, cool, amazing!! Yay.')
+  })
+  .then(function (category) {
+    console.log(category, 'should be positive')
+  })
+```
 
 
 ### Tests
