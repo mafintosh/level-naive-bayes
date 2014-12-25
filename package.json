@@ -5,14 +5,13 @@
   "main": "index.js",
   "dependencies": {
     "after-all": "^2.0.1",
+    "bluebird": "^2.4.2",
     "mutexify": "^1.0.1",
     "pump": "^1.0.0",
-    "q": "^1.1.2",
     "through2": "^0.6.3"
   },
   "devDependencies": {
     "memdb": "^0.2.0",
-    "mocha": "^2.0.1",
     "tape": "^3.0.3"
   },
   "scripts": {

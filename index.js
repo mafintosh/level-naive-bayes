@@ -2,7 +2,7 @@ var after = require('after-all')
 var mutexify = require('mutexify')
 var through = require('through2')
 var pump = require('pump')
-var q = require('q')
+var b = require('bluebird')
 var noop = function() {}
 
 var defaultTokenize = function(str) {
@@ -64,14 +64,14 @@ module.exports = function(db, opts) {
       })
     }
 
-    get(db, ['samples', 'vocabulary', catSamples, catTokens], function(err, result) {
+    get(db, ['samples', '$v', catSamples, catTokens], function(err, result) {
       if (err) return cb(err)
 
       put('samples', result.samples+1)
       put(catSamples, result[catSamples]+1)
       put(catTokens, result[catTokens]+tokens.length)
 
-      var vocabulary = result.vocabulary
+      var $v = result.$v
       var freqs = frequencyTable(tokens)
       var keys = Object.keys(freqs).map(function(token) {
         return catFreq+token
@@ -85,7 +85,7 @@ module.exports = function(db, opts) {
         })
 
         var vocs = Object.keys(freqs).map(function(key) {
-          return 'vocabulary!'+key
+          return '$v!'+key
         })
 
         get(db, vocs, function(err, result) {
@@ -97,7 +97,7 @@ module.exports = function(db, opts) {
             inc++
           })
 
-          if (inc) put('vocabulary', vocabulary+inc)
+          if (inc) put('$v', $v+inc)
           db.batch(batch, cb)
         })
       })
@@ -115,7 +115,7 @@ module.exports = function(db, opts) {
     })
   }
 
-  that.trainAsync = q.denodeify(that.train)
+  that.trainAsync = b.promisify(that.train)
 
   that.classify = function(tokens, cb) {
     if (typeof tokens === 'string') tokens = tokenize(tokens)
@@ -130,7 +130,7 @@ module.exports = function(db, opts) {
       var catFreq = 'frequency!'+category+'!'
       var catTokens = 'tokens!'+category
 
-      var keys = ['samples', 'vocabulary', catTokens]
+      var keys = ['samples', '$v', catTokens]
 
       Object.keys(freqs).forEach(function(key) {
         keys.push(catFreq+key)
@@ -144,7 +144,7 @@ module.exports = function(db, opts) {
 
         Object.keys(freqs).forEach(function(key) {
           var tokenFreq = result[catFreq+key]
-          var tokenProb = (tokenFreq+1) / (result[catTokens]+result.vocabulary)
+          var tokenProb = (tokenFreq+1) / (result[catTokens]+result.$v)
 
           logProb += freqs[key] * Math.log(tokenProb)
         })
@@ -163,7 +163,9 @@ module.exports = function(db, opts) {
       cb(null, chosen)
     })
   }
-  that.classifyAsync = q.denodeify(that.classify)
+
+  that.classifyAsync = b.promisify(that.classify)
+
 
   return that
 }

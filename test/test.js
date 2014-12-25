@@ -1,7 +1,7 @@
 var memdb = require('memdb')
 var tape = require('tape')
 var bayes = require('./../')
-var q = require('q')
+var q = require('bluebird')
 
 tape('postive / negative', function (t) {
   var nb = bayes(memdb())
