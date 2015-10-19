@@ -1,5 +1,5 @@
 {
-  "name": "level-naive-bayes",
+  "name": "syzer-level-naive-bayes",
   "version": "1.0.0",
   "description": "Bayes text classifier that runs on top of leveldb",
   "main": "index.js",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mafintosh/level-naive-bayes.git"
+    "url": "https://github.com/syzer/level-naive-bayes"
   },
   "author": "Mathias Buus (@mafintosh)",
   "license": "MIT",
