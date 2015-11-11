@@ -1,6 +1,6 @@
 {
   "name": "syzer-level-naive-bayes",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Bayes text classifier that runs on top of leveldb",
   "main": "index.js",
   "dependencies": {
