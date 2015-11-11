@@ -1,14 +1,14 @@
 {
   "name": "syzer-level-naive-bayes",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Bayes text classifier that runs on top of leveldb",
   "main": "index.js",
   "dependencies": {
-    "after-all": "^2.0.1",
-    "bluebird": "^2.4.2",
+    "after-all": "^2.0.2",
+    "bluebird": "^2.10.2",
     "mutexify": "^1.0.1",
-    "pump": "^1.0.0",
-    "through2": "^0.6.3"
+    "pump": "^1.0.1",
+    "through2": "^0.6.5"
   },
   "devDependencies": {
     "memdb": "^0.2.0",
@@ -21,10 +21,11 @@
     "type": "git",
     "url": "https://github.com/syzer/level-naive-bayes"
   },
-  "author": "Mathias Buus (@mafintosh)",
+  "author": "Mathias Buus (@mafintosh), Lukasz Gintowt (@syzer3)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mafintosh/level-naive-bayes/issues"
+    "url": "https://github.com/syzer/level-naive-bayes/issues"
   },
-  "homepage": "https://github.com/mafintosh/level-naive-bayes"
+  "homepage": "https://github.com/syzer/level-naive-bayes",
+  "engine": ">=4.1.1"
 }
