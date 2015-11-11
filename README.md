@@ -14,7 +14,7 @@ npm install syzer-level-naive-bayes
 ## Usage
 
 ``` js
-var bayes = require('level-naive-bayes')
+var bayes = require('syzer-level-naive-bayes')
 
 var nb = bayes(db) // where db is a levelup instance
 
