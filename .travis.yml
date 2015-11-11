@@ -3,6 +3,4 @@ node_js:
   - "4.0"
   - "5.0"
 after_success:
-  - bash istanbul cover ./test/test.js && cat ./coverage/coverage.json | ./node_modules/codecov.io/bin/codecov.io.js
-  - bash <(curl -s https://codecov.io/bash)
-  - codecov
+  - npm run-script coverage

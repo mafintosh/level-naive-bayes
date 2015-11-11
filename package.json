@@ -12,11 +12,13 @@
   },
   "devDependencies": {
     "codecov.io": "^0.1.6",
+    "istanbul": "^0.4.0",
     "memdb": "~1.0.1",
     "tape": "~4.2.2"
   },
   "scripts": {
-    "test": "tape ./test/test.js"
+    "test": "tape ./test/test.js",
+    "coverage": "./node_modules/.bin/istanbul cover ./test/test.js && cat ./coverage/lcov.info | ./node_modules/.bin/codecov"
   },
   "repository": {
     "type": "git",
