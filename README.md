@@ -2,13 +2,12 @@
 
 Naive Bayes text classifier that runs on top of leveldb. Based on the [bayes](https://github.com/ttezel/bayes) module.
 It returns log-probabilities.
-[https://en.wikipedia.org/wiki/Log_probability]()
+[Log_probaility](https://en.wikipedia.org/wiki/Log_probability)
 
 ```
-npm install level-naive-bayes
+npm install syzer-level-naive-bayes
 ```
-
-[![build status](http://img.shields.io/travis/mafintosh/level-naive-bayes.svg?style=flat)](http://travis-ci.org/mafintosh/level-naive-bayes)
+[![build status](http://img.shields.io/travis/syzer/level-naive-bayes.svg?style=flat)](http://travis-ci.org/syzer/level-naive-bayes)
 
 ## Usage
 
