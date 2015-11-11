@@ -208,9 +208,7 @@ module.exports = function (db, opts) {
 
     pump(db.createReadStream({gt: 'samples!', lt: 'samples!\xff'}), through.obj(write), function (err) {
       if (err) return cb(err)
-      cb(null, chosen.sort(function (a, b) {
-          return b.logProb - a.logProb;
-      }))
+      cb(null, chosen.sort((a, b) => (b.logProb - a.logProb)))
     })
   }
 
