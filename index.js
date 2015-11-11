@@ -169,5 +169,52 @@ module.exports = function (db, opts) {
 
   that.classifyAsync = b.promisify(that.classify)
 
+  that.classifyLabels = function (tokens, cb) {
+    if (typeof tokens === 'string') tokens = tokenize(tokens)
+
+    var freqs = frequencyTable(tokens)
+    var chosen = []
+
+    var write = function (data, enc, cb) {
+      var category = data.key.slice('samples!'.length)
+      var catSamples = Number(data.value)
+      var catFreq = 'frequency!' + category + '!'
+      var catTokens = 'tokens!' + category
+
+      var keys = ['samples', '$v', catTokens]
+
+      Object.keys(freqs).forEach(function (key) {
+        keys.push(catFreq + key)
+      })
+
+      get(db, keys, function (err, result) {
+        if (err) return cb(err)
+
+        var catProp = catSamples / result.samples
+        var logProb = Math.log(catProp)
+
+        Object.keys(freqs).forEach(function (key) {
+          var tokenFreq = result[catFreq + key]
+          var tokenProb = (tokenFreq + 1) / (result[catTokens] + result.$v)
+
+          logProb += freqs[key] * Math.log(tokenProb)
+        })
+
+        chosen.push({label: category, logProb: logProb})
+
+        cb()
+      })
+    }
+
+    pump(db.createReadStream({gt: 'samples!', lt: 'samples!\xff'}), through.obj(write), function (err) {
+      if (err) return cb(err)
+      cb(null, chosen.sort(function (a, b) {
+          return b.logProb - a.logProb;
+      }))
+    })
+  }
+
+  that.classifyLabelsAsync = b.promisify(that.classifyLabels)
+
   return that
 }
