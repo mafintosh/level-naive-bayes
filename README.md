@@ -1,6 +1,8 @@
 # level-naive-bayes
 
 Naive Bayes text classifier that runs on top of leveldb. Based on the [bayes](https://github.com/ttezel/bayes) module.
+It returns log-probabilities.
+[https://en.wikipedia.org/wiki/Log_probability]()
 
 ```
 npm install level-naive-bayes
@@ -64,7 +66,7 @@ nb.trainAsync('positive', 'amazing, awesome movie!! Yeah!! Oh boy.').then(functi
 ```
 
 ### `nb.classifyAsync(text)`
-Returns a promise of finished clasification, usage:
+Returns a promise of finished classification, usage:
 
 ```js
 var thingsToDo = [
@@ -79,6 +81,25 @@ q.all(thingsToDo)
   })
   .then(function (category) {
     console.log(category, 'should be positive')
+  })
+```
+
+### `nb.classifyLabelsAsync(text)`
+Returns a promise of finished classification, usage:
+
+```js
+var thingsToDo = [
+  nb.trainAsync('positive', 'Sweet, this is incredibly, amazing, perfect, great!!'),
+  nb.trainAsync('neutral', 'amazing, awesome movie!! Yeah!! Oh boy.'),
+  nb.trainAsync('negative', 'terrible, shitty thing. Damn. Sucks!!')
+];
+
+q.all(thingsToDo)
+  .then(function () {
+    return nb.classifyLabelsAsync('awesome, cool, amazing!! Yay.')
+  })
+  .then(function (labels) {
+    console.log(labels[0].label, 'should be neutral') 
   })
 ```
 
