@@ -11,6 +11,7 @@
     "through2": "~2.0.0"
   },
   "devDependencies": {
+    "codecov.io": "^0.1.6",
     "memdb": "~1.0.1",
     "tape": "~4.2.2"
   },
