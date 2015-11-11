@@ -8,6 +8,7 @@ It returns log-probabilities.
 npm install syzer-level-naive-bayes
 ```
 [![build status](http://img.shields.io/travis/syzer/level-naive-bayes.svg?style=flat)](http://travis-ci.org/syzer/level-naive-bayes)
+[![dev depedencies](https://david-dm.org/syzer/level-naive-bayes)](https://david-dm.org/syzer/level-naive-bayes)
 
 ## Usage
 
