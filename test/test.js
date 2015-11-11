@@ -39,7 +39,6 @@ tape('spam / not spam', function (t) {
   })
 })
 
-
 tape('train with promise', function (t) {
   var nb = bayes(memdb())
 
@@ -93,3 +92,52 @@ tape('classify can be used as promise', function (t) {
       t.end()
     })
 })
+
+tape('classifyLabels with three labels', function (t) {
+  var nb = bayes(memdb())
+
+  nb.train('spam', 'Great viagra for you!', function (err) {
+    t.notOk(err, 'no err')
+    nb.train('not spam', 'UTOSC is the best conference ever!', function (err) {
+      t.notOk(err, 'no err')
+      nb.train('dont know', 'It might be good opportunity.', function (err) {
+        t.notOk(err, 'no err')
+        nb.train('not spam', 'Some more strings that are not spam!', function (err) {
+          t.notOk(err, 'no err')
+          nb.classifyLabels('Great opportunity in Nigeria!', function (err, categories) {
+            t.same(categories[0].label, 'spam', 'should be spam')
+            t.same(categories[1].label, 'dont know', 'dont know is second guess')
+            t.same(categories[2].label, 'not spam', 'last possible guess')
+            t.end()
+          })
+        })
+      })
+    })
+  })
+})
+
+tape('classifyLabels with promises', testClasifyLabels)
+
+function testClasifyLabels(t) {
+  var nb = bayes(memdb())
+
+  var thingsToDo = [
+    nb.trainAsync('positive', 'Sweet, this is incredibly, amazing, perfect, great!!'),
+    nb.trainAsync('neutral', 'Additionally, the cost of computing the addition can be avoided in some situations'),
+    nb.trainAsync('neutral', 'many applications a multiplication of probabilities'),
+    nb.trainAsync('positive', 'amazing, awesome movie!! Yeah!! Oh boy.'),
+    nb.trainAsync('negative', 'terrible, shitty thing. Damn. Sucks!!'),
+    nb.trainAsync('neutral', 'probabilities in this way has two main advantages')
+  ];
+
+  q.all(thingsToDo)
+    .then(() => {
+      return nb.classifyLabelsAsync('awesome, cool, amazing!! Yay.')
+    })
+    .then(labels => t.same('positive', labels[0].label, 'should be positive'))
+    .then(() => nb.classifyLabelsAsync('probabilities are this gives a lower bound'))
+    .then(labels => {
+      t.same('neutral', labels[0].label, 'should be neutral')
+      t.end()
+    })
+}
