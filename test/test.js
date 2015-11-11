@@ -131,9 +131,7 @@ function testClasifyLabels(t) {
   ];
 
   q.all(thingsToDo)
-    .then(() => {
-      return nb.classifyLabelsAsync('awesome, cool, amazing!! Yay.')
-    })
+    .then(() => (nb.classifyLabelsAsync('awesome, cool, amazing!! Yay.')))
     .then(labels => t.same('positive', labels[0].label, 'should be positive'))
     .then(() => nb.classifyLabelsAsync('probabilities are this gives a lower bound'))
     .then(labels => {
