@@ -139,6 +139,8 @@ function testClasifyLabels(t) {
     .then(labels => {
       t.same('neutral', labels[0].label, 'should be neutral')
       t.same('number', typeof labels[0].logProb, 'should be Number')
+      t.same(3, labels.map(l=>l.label).filter(l=>'string' === typeof l).length, 'should be three labels')
+      t.same(3, labels.map(l=>l.logProb).filter(l=>'number' === typeof l).length, 'should be three logProbs')
       t.end()
     })
 }
