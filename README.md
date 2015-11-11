@@ -95,11 +95,12 @@ var thingsToDo = [
 ];
 
 q.all(thingsToDo)
-  .then(function () {
-    return nb.classifyLabelsAsync('awesome, cool, amazing!! Yay.')
-  })
-  .then(function (labels) {
+  .then(() => (nb.classifyLabelsAsync('awesome, cool, amazing!! Yay.')))
+  .then((labels) => {
     console.log(labels[0].label, 'should be neutral') 
+    console.log(labels[0].logProb, 'should be logProbability')
+    console.log(labels[1].label, 'should be second guess')
+    console.log(labels[1].logProb, 'should be logProbability')
   })
 ```
 

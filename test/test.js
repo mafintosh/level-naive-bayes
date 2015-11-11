@@ -138,6 +138,7 @@ function testClasifyLabels(t) {
     .then(() => nb.classifyLabelsAsync('probabilities are this gives a lower bound'))
     .then(labels => {
       t.same('neutral', labels[0].label, 'should be neutral')
+      t.same('number', typeof labels[0].logProb, 'should be Number')
       t.end()
     })
 }
