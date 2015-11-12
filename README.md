@@ -67,7 +67,7 @@ nb.trainAsync('positive', 'amazing, awesome movie!! Yeah!! Oh boy.').then(functi
 })
 ```
 
-### `nb.classifyAsync(text)`
+#### `nb.classifyAsync(text)`
 Returns a promise of finished classification, usage:
 
 ```js
@@ -86,7 +86,7 @@ q.all(thingsToDo)
   })
 ```
 
-### `nb.classifyLabelsAsync(text)`
+#### `nb.classifyLabelsAsync(text)`
 Returns a promise of finished classification, usage:
 
 ```js
