@@ -23,7 +23,7 @@
     "prepublish": "babel index.js --out-file index-es5.js"
   },
   "pre-commit": [
-    "prepublish"
+    "test", "prepublish"
   ],
   "repository": {
     "type": "git",
