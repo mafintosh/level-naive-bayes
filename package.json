@@ -1,8 +1,8 @@
 {
   "name": "syzer-level-naive-bayes",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Bayes text classifier that runs on top of leveldb",
-  "main": "index.js",
+  "main": "index-es5.js",
   "dependencies": {
     "after-all": "^2.0.2",
     "bluebird": "~3.0.5",
@@ -30,5 +30,5 @@
     "url": "https://github.com/syzer/level-naive-bayes/issues"
   },
   "homepage": "https://github.com/syzer/level-naive-bayes",
-  "engine": ">=4.1.1"
+  "engine": ">=0.12"
 }

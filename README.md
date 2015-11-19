@@ -68,8 +68,7 @@ nb.trainAsync('positive', 'amazing, awesome movie!! Yeah!! Oh boy.').then(functi
 ```
 
 #### `nb.classifyAsync(text)`
-Returns a promise of finished classification, usage:
-
+Returns a promise of finished classification
 ```js
 var thingsToDo = [
   nb.trainAsync('positive', 'Sweet, this is incredibly, amazing, perfect, great!!'),
