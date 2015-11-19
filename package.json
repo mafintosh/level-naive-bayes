@@ -1,6 +1,6 @@
 {
   "name": "syzer-level-naive-bayes",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Bayes text classifier that runs on top of leveldb",
   "main": "index-es5.js",
   "dependencies": {
@@ -14,6 +14,7 @@
     "codecov.io": "^0.1.6",
     "istanbul": "^0.4.0",
     "memdb": "~1.0.1",
+    "pre-commit": "^1.1.2",
     "tape": "~4.2.2"
   },
   "scripts": {
@@ -21,6 +22,9 @@
     "coverage": "./node_modules/.bin/istanbul cover ./test/test.js && cat ./coverage/lcov.info | ./node_modules/.bin/codecov",
     "prepublish": "babel index.js --out-file index-es5.js"
   },
+  "pre-commit": [
+    "prepublish"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/syzer/level-naive-bayes"
