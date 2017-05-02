@@ -1,17 +1,21 @@
 # level-naive-bayes
 
 Naive Bayes text classifier that runs on top of leveldb. Based on the [bayes](https://github.com/ttezel/bayes) module.
+It returns log-probabilities.
+[Log_probaility](https://en.wikipedia.org/wiki/Log_probability)
 
 ```
-npm install level-naive-bayes
+npm install syzer-level-naive-bayes
 ```
-
-[![build status](http://img.shields.io/travis/mafintosh/level-naive-bayes.svg?style=flat)](http://travis-ci.org/mafintosh/level-naive-bayes)
+[![build status](http://img.shields.io/travis/syzer/level-naive-bayes.svg?style=flat)](http://travis-ci.org/syzer/level-naive-bayes)
+[![Dependency Status](https://david-dm.org/syzer/level-naive-bayes.svg)](https://david-dm.org/syzer/level-naive-bayes)
+[![devDependency Status](https://david-dm.org/syzer/level-naive-bayes/dev-status.svg)](https://david-dm.org/syzer/level-naive-bayes#info=devDependencies)
+[![Code Coverage](https://img.shields.io/codecov/c/github/syzer/level-naive-bayes/master.svg)](https://codecov.io/github/syzer/level-naive-bayes?branch=master)
 
 ## Usage
 
 ``` js
-var bayes = require('level-naive-bayes')
+var bayes = require('syzer-level-naive-bayes')
 
 var nb = bayes(db) // where db is a levelup instance
 
@@ -50,6 +54,60 @@ If the text is already tokenized pass in an array of tokens instead of text
 
 Classify the given text into a category.
 If the text is already tokenized pass in an array of tokens instead of text
+
+
+#### `nb.trainAsync(category, text)`
+Returns a promise of finished training, usage:
+
+``` js
+nb.trainAsync('positive', 'amazing, awesome movie!! Yeah!! Oh boy.').then(function () {
+  return nb.classify('awesome, cool, amazing!! Yay.', function (err, category) {
+    console.log('positive', category);
+  })
+})
+```
+
+#### `nb.classifyAsync(text)`
+Returns a promise of finished classification
+```js
+var thingsToDo = [
+  nb.trainAsync('positive', 'Sweet, this is incredibly, amazing, perfect, great!!'),
+  nb.trainAsync('positive', 'amazing, awesome movie!! Yeah!! Oh boy.'),
+  nb.trainAsync('negative', 'terrible, shitty thing. Damn. Sucks!!')
+];
+
+q.all(thingsToDo)
+  .then(function () {
+    return nb.classifyAsync('awesome, cool, amazing!! Yay.')
+  })
+  .then(function (category) {
+    console.log(category, 'should be positive')
+  })
+```
+
+#### `nb.classifyLabelsAsync(text)`
+Returns a promise of finished classification, usage:
+
+```js
+var thingsToDo = [
+  nb.trainAsync('positive', 'Sweet, this is incredibly, amazing, perfect, great!!'),
+  nb.trainAsync('neutral', 'amazing, awesome movie!! Yeah!! Oh boy.'),
+  nb.trainAsync('negative', 'terrible, shitty thing. Damn. Sucks!!')
+];
+
+q.all(thingsToDo)
+  .then(() => (nb.classifyLabelsAsync('awesome, cool, amazing!! Yay.')))
+  .then((labels) => {
+    console.log(labels[0].label, 'should be neutral') 
+    console.log(labels[0].logProb, 'should be logProbability')
+    console.log(labels[1].label, 'should be second guess')
+    console.log(labels[1].logProb, 'should be logProbability')
+  })
+```
+
+
+### Tests
+`npm test`
 
 ## License
 
